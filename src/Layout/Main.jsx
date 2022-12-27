@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import LeftNav from "../Pages/Shared/LeftNav/LeftNav";
 import logo from "../assets/logo.png";
 import { AiFillHome } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { BsFillBookmarkFill } from "react-icons/bs";
 
 const Main = () => {
   const [drawer, setDrawer] = useState(false);
+  const [bg, setBg] = useState(null);
   return (
     <div>
       <LeftNav setDrawer={setDrawer}></LeftNav>
@@ -40,30 +41,93 @@ const Main = () => {
                 <img src={logo} alt="" className="w-14" />{" "}
                 <span className="font-semibold mr-2 text-xl">Valence</span>
               </li>
-              <li className="mb-2 flex items-center bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-black">
-                <AiFillHome className="mr-5 text-2xl" /> Media
+
+              <li
+                className={`${
+                  bg === "media" ? "bg-white text-dark" : ""
+                }mb-2 hover:bg-white cursor-pointer rounded-lg w-full text-gray-600 hover:text-black`}
+                onClick={() => setBg("media")}
+              >
+                <NavLink
+                  to="/media"
+                  className="w-full flex  px-4 py-3 items-center"
+                >
+                  <AiFillHome className="mr-5 text-2xl" /> Media
+                </NavLink>
               </li>
-              <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <MdExplore className="mr-5 text-2xl" /> Explore
+              <li
+                className={`${
+                  bg === "explore" ? "bg-white text-dark" : ""
+                }mb-2 hover:bg-white cursor-pointer rounded-lg w-full text-gray-600 hover:text-black`}
+                onClick={() => setBg("explore")}
+              >
+                <NavLink
+                  to="/explore"
+                  className="w-full flex px-4 py-3 items-center"
+                >
+                  <MdExplore className="mr-5 text-2xl" /> Explore
+                </NavLink>
               </li>
-              <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <CgProfile className="mr-5 text-2xl" /> Profile
+              <li
+                className={`${
+                  bg === "profile" ? "bg-white text-dark" : ""
+                }mb-2 hover:bg-white cursor-pointer rounded-lg w-full text-gray-600 hover:text-black`}
+                onClick={() => setBg("profile")}
+              >
+                <NavLink
+                  to="/profile"
+                  className="w-full px-4 py-3 flex items-center"
+                >
+                  <CgProfile className="mr-5 text-2xl" /> Profile
+                </NavLink>
               </li>
-              <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <BiMessageRounded className="mr-5 text-2xl" /> Messages
+              <li
+                className={`${
+                  bg === "message" ? "bg-white text-dark" : ""
+                }mb-2 hover:bg-white cursor-pointer rounded-lg w-full text-gray-600 hover:text-black`}
+                onClick={() => setBg("message")}
+              >
+                <NavLink
+                  to="/message"
+                  className="w-full px-4 py-3 flex items-center"
+                >
+                  <BiMessageRounded className="mr-5 text-2xl" /> Messages
+                </NavLink>
               </li>
-              <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <IoIosNotifications className="mr-5 text-2xl" /> Notifications
+              <li
+                className={`${
+                  bg === "notifications" ? "bg-white text-dark" : ""
+                }mb-2 hover:bg-white cursor-pointer rounded-lg w-full text-gray-600 hover:text-black`}
+                onClick={() => setBg("notifications")}
+              >
+                <NavLink
+                  to="/notification"
+                  className="w-full flex px-4 py-3 items-center"
+                >
+                  <IoIosNotifications className="mr-5 text-2xl" /> Notifications
+                </NavLink>
               </li>
-              <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <BsFillBookmarkFill className="mr-5 text-2xl" /> Bookmarks
+              <li
+                className={`${
+                  bg === "bookmarks" ? "bg-white text-dark" : ""
+                }mb-2 hover:bg-white cursor-pointer rounded-lg w-full text-gray-600 hover:text-black`}
+                onClick={() => setBg("bookmarks")}
+              >
+                <NavLink
+                  to="/bookmarks"
+                  className="w-full  px-4 py-3 flex items-center"
+                >
+                  <BsFillBookmarkFill className="mr-5 text-2xl" /> Bookmarks
+                </NavLink>
               </li>
             </div>
 
             <div>
-              <li className="px-4 py-3 bg-blue-800 text-white font-semibold text-center rounded-lg cursor-pointer">
-                Sign In
-              </li>
+              <label htmlFor="login">
+                <li className="px-4 py-3 bg-blue-800 text-white font-semibold text-center rounded-lg cursor-pointer">
+                  Sign In
+                </li>
+              </label>
             </div>
           </ul>
         </div>
