@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import TopNav from "../TopNav/TopNav";
 
 const Home = () => {
-    return (
-        <div className='bg-slate-700'>
-            This is home
-        </div>
-    );
+  return (
+    <div>
+      <TopNav />
+    </div>
+  );
 };
 
 export default Home;

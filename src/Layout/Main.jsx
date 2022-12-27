@@ -21,7 +21,7 @@ const Main = () => {
           className="drawer-toggle"
           checked={drawer}
         />
-        <div className="drawer-content md:px-0 px-4">
+        <div className="drawer-content md:px-0">
           <Outlet></Outlet>
         </div>
 
@@ -31,7 +31,7 @@ const Main = () => {
           <ul className="p-4 w-80 bg-base-100 text-base-content relative text-lg flex flex-col justify-between">
             <div>
               <p
-                className="absolute top-0 right-2 px-2 bg-[#ffbd59] block md:hidden cursor-pointer rounded-full"
+                className="absolute top-0 right-2 px-2 bg-[#ffbd59] block lg:hidden cursor-pointer rounded-full"
                 onClick={() => setDrawer(false)}
               >
                 ✕
@@ -41,27 +41,29 @@ const Main = () => {
                 <span className="font-semibold mr-2 text-xl">Valence</span>
               </li>
               <li className="mb-2 flex items-center bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-black">
-                <AiFillHome className="mr-5" /> Media
+                <AiFillHome className="mr-5 text-2xl" /> Media
               </li>
               <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <MdExplore className="mr-5" /> Explore
+                <MdExplore className="mr-5 text-2xl" /> Explore
               </li>
               <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <CgProfile className="mr-5" /> Profile
+                <CgProfile className="mr-5 text-2xl" /> Profile
               </li>
               <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <BiMessageRounded className="mr-5" /> Messages
+                <BiMessageRounded className="mr-5 text-2xl" /> Messages
               </li>
               <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <IoIosNotifications className="mr-5" /> Notifications
+                <IoIosNotifications className="mr-5 text-2xl" /> Notifications
               </li>
               <li className="mb-2 flex items-center hover:bg-white cursor-pointer px-4 py-3 rounded-lg w-full text-gray-600 hover:text-black">
-                <BsFillBookmarkFill className="mr-5" /> Bookmarks
+                <BsFillBookmarkFill className="mr-5 text-2xl" /> Bookmarks
               </li>
             </div>
 
             <div>
-              <li className="px-4 py-3 bg-blue-800 text-white font-semibold text-center rounded-lg cursor-pointer">Sign In</li>
+              <li className="px-4 py-3 bg-blue-800 text-white font-semibold text-center rounded-lg cursor-pointer">
+                Sign In
+              </li>
             </div>
           </ul>
         </div>

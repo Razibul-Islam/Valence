@@ -5,7 +5,7 @@ import logo from '../../../assets/logo.png';
 const LeftNav = ({ setDrawer }) => {
   return (
     <div className='flex justify-between items-center lg:hidden'>
-          <img src={logo} alt="" className='w-2/12' />
+          <img src={logo} alt="" className='w-20' />
       <div className="">
         <label
           htmlFor="drawer"
