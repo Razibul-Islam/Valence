@@ -45,8 +45,10 @@ const Register = ({ setIsModal, isModal }) => {
               updateUser(userInfo)
                 .then((result) => {
                   //   console.log(userInfo);
-                  verifyUser();
                   toast.success("Account Created Successfully");
+                  verifyUser().then(() => {
+                    toast.success("Verify Email sent, Check your spam folder");
+                  });
                   reset();
                 })
                 .catch((err) => console.error(err));

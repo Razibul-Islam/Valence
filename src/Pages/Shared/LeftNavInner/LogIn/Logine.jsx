@@ -13,6 +13,7 @@ const Logine = ({ setIsModal, isModal }) => {
   } = useForm();
 
   const [userEmail, setUserEmail] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
   const { googleUser, loginUser, passwordEmail } = useContext(AuthContext);
@@ -26,7 +27,10 @@ const Logine = ({ setIsModal, isModal }) => {
         toast.success("Login Successfully");
         reset();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        // console.error(err)
+        setLoginError(err.code);
+      });
   };
 
   const googleHandler = () => {
@@ -35,15 +39,22 @@ const Logine = ({ setIsModal, isModal }) => {
         const user = result.user;
         console.log(user);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        // console.error(err)
+        setLoginError(err.code);
+      });
   };
 
   const handlePassword = () => {
     passwordEmail(userEmail)
       .then(() => {
         toast.success("Your reset Password Email sent, Check your spam folder");
+        setUserEmail(null);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoginError(err.code);
+      });
     // console.log(userEmail);
   };
 
@@ -56,6 +67,7 @@ const Logine = ({ setIsModal, isModal }) => {
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">
         <h1 className="text-3xl font-bold text-center">Login</h1>
+        <p className="text-center text-lg text-red-800">{loginError}</p>
         <form
           novalidate=""
           action=""
@@ -76,6 +88,14 @@ const Logine = ({ setIsModal, isModal }) => {
               placeholder="Email"
               className="w-full px-4 py-3 rounded-md text-lg border-gray-200 focus:outline-none bg-white text-gray-900"
             />
+            {errors.email && (
+              <p
+                role="alert"
+                className="text-red-800 text-[15px] font-semibold"
+              >
+                {errors.email?.message}
+              </p>
+            )}
           </div>
           <div className="space-y-1 text-sm">
             <label for="password" className="block text-lg text-gray-400">
@@ -90,6 +110,14 @@ const Logine = ({ setIsModal, isModal }) => {
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md text-lg border-gray-200 focus:outline-none bg-white text-gray-900"
             />
+            {errors.password && (
+              <p
+                role="alert"
+                className="text-red-800 text-[15px] font-semibold"
+              >
+                {errors.password?.message}
+              </p>
+            )}
             <div className="flex justify-end text-sm text-gray-800">
               <span
                 className="cursor-pointer hover:text-blue-800 hover:underline"
@@ -99,9 +127,11 @@ const Logine = ({ setIsModal, isModal }) => {
               </span>
             </div>
           </div>
-          <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400">
-            Sign In
-          </button>
+          <input
+            value="Log In"
+            type="submit"
+            className="block w-full p-3 cursor-pointer text-center rounded-sm text-lg text-gray-900 bg-violet-400"
+          />
         </form>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
