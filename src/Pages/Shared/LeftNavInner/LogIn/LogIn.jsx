@@ -1,27 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import Logine from "./Logine";
+import Register from "./Register";
 
 const LogIn = () => {
+  const [isModal, setIsModal] = useState(true);
   return (
     <>
-      <input type="checkbox" id="login" className="modal-toggle" />
-      <label htmlFor="login" className="modal cursor-auto">
-        <div className="modal-bottom sm:modal-middle">
-          <div className="modal-box relative">
+      <div>
+        <input type="checkbox" id="login" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box text-gray-700 relative">
+            {/* max-h-[95%] max-w-5xl */}
             <label
               htmlFor="login"
               className="btn btn-sm btn-circle absolute right-2 top-2"
+              // onClick={() => setIsModal(true)}
             >
               ✕
             </label>
-            <div>
-              
-            </div>
-            <div className="modal-action">
-              <label className="btn btn-secondary">Log In</label>
-            </div>
+            {/*  */}
+            {isModal && (
+              <>
+                <Logine setIsModal={setIsModal} isModal={isModal} />
+              </>
+            )}
+            {/*  */}
+            {!isModal && (
+              <>
+                <Register setIsModal={setIsModal} isModal={isModal} />
+              </>
+            )}
           </div>
         </div>
-      </label>
+      </div>
     </>
   );
 };
