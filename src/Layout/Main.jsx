@@ -7,15 +7,20 @@ import { MdExplore } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { BiMessageRounded } from "react-icons/bi";
 import { IoIosNotifications } from "react-icons/io";
-import { BsFillBookmarkFill } from "react-icons/bs";
+import { BsFillBookmarkFill, BsThreeDots } from "react-icons/bs";
 import Footer from "../Pages/Shared/Footer/Footer";
 import { AuthContext } from "../Pages/AuthProvider/AuthProvider";
 
 const Main = () => {
   const [drawer, setDrawer] = useState(false);
   const [bg, setBg] = useState(null);
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user, logOut } = useContext(AuthContext);
+  // console.log(user);
+
+  const signOut = () => {
+    logOut().then().catch();
+  };
+
   return (
     <div>
       <LeftNav setDrawer={setDrawer}></LeftNav>
@@ -129,12 +134,24 @@ const Main = () => {
             <div>
               {user?.uid ? (
                 <>
-                  <div className="dropdown dropdown-top">
+                  <div className="dropdown dropdown-top w-full cursor-pointer">
                     <label tabIndex={0} className="m-1">
-                      <div className="avatar online">
-                        <div className="w-14 rounded-full">
-                          <img src={user?.photoURL} alt="" />
+                      <div className="flex justify-between items-center w-full cursor-pointer">
+                        <div className="flex justify-center items-center">
+                          <div className="avatar online">
+                            <div className="w-14 rounded-full">
+                              <img src={user?.photoURL} alt="" />
+                            </div>
+                          </div>
+                          <div className="ml-3">
+                            <p className="font-semibold text-xl">
+                              {user?.displayName}
+                            </p>
+                          </div>
                         </div>
+                        <span className="hover:bg-white p-4 rounded-full transition-colors duration-500 ">
+                          <BsThreeDots />
+                        </span>
                       </div>
                     </label>
                     <ul
@@ -142,9 +159,8 @@ const Main = () => {
                       className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                     >
                       <li>
-                        <span>Log Out</span>
+                        <span onClick={signOut}>Log Out</span>
                       </li>
-                      
                     </ul>
                   </div>
                 </>
