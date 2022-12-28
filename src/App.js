@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 import './App.css';
 import LogIn from './Pages/Shared/LeftNavInner/LogIn/LogIn';
@@ -7,7 +8,8 @@ function App() {
   return (
     <div>
       <RouterProvider router={router}></RouterProvider>
-      <LogIn/>
+      <LogIn />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }

@@ -1,6 +1,57 @@
-import React from 'react';
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const Logine = ({ setIsModal, isModal }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const [userEmail, setUserEmail] = useState("");
+
+  const googleProvider = new GoogleAuthProvider();
+  const { googleUser, loginUser, passwordEmail } = useContext(AuthContext);
+
+  const onSubmit = (data) => {
+    // console.log(data);
+    loginUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        // console.log(user);
+        toast.success("Login Successfully");
+        reset();
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const googleHandler = () => {
+    googleUser(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handlePassword = () => {
+    passwordEmail(userEmail)
+      .then(() => {
+        toast.success("Your reset Password Email sent, Check your spam folder");
+      })
+      .catch((err) => console.error(err));
+    // console.log(userEmail);
+  };
+
+  const handleEmail = (e) => {
+    // console.log(e.target.value);
+    setUserEmail(e.target.value);
+  };
+
   return (
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">
@@ -9,16 +60,20 @@ const Logine = ({ setIsModal, isModal }) => {
           novalidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="space-y-1 text-sm">
-            <label for="username" className="block text-lg text-gray-400">
-              Username
+            <label for="email" className="block text-lg text-gray-400">
+              Email
             </label>
             <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
+              type="email"
+              {...register("email", {
+                required: "Email is Required",
+              })}
+              id="email"
+              onChange={handleEmail}
+              placeholder="Email"
               className="w-full px-4 py-3 rounded-md text-lg border-gray-200 focus:outline-none bg-white text-gray-900"
             />
           </div>
@@ -28,15 +83,20 @@ const Logine = ({ setIsModal, isModal }) => {
             </label>
             <input
               type="password"
-              name="password"
+              {...register("password", {
+                required: "Password is Required",
+              })}
               id="password"
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md text-lg border-gray-200 focus:outline-none bg-white text-gray-900"
             />
             <div className="flex justify-end text-sm text-gray-800">
-              <a rel="noopener noreferrer" href="#">
+              <span
+                className="cursor-pointer hover:text-blue-800 hover:underline"
+                onClick={handlePassword}
+              >
                 Forgot Password?
-              </a>
+              </span>
             </div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400">
@@ -55,6 +115,7 @@ const Logine = ({ setIsModal, isModal }) => {
             aria-label="Login with Google"
             type="button"
             className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md hover:bg-gray-800 transition-colors duration-700 hover:text-gray-200 border-gray-800"
+            onClick={googleHandler}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

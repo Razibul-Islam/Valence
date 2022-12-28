@@ -1,17 +1,25 @@
-import React from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const Register = ({ setIsModal, isModal }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+      formState: { errors },
+    reset
   } = useForm();
 
   const imgbb = process.env.REACT_APP_imagebbAPI;
+  const googleProvider = new GoogleAuthProvider();
+
+  const { createUser, updateUser, googleUser, verifyUser } =
+    useContext(AuthContext);
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     const image = data.photo[0];
     // console.log(image);
     const formData = new FormData();
@@ -24,19 +32,45 @@ const Register = ({ setIsModal, isModal }) => {
     })
       .then((res) => res.json())
       .then((imgbb) => {
-          if (imgbb.success) {
-              console.log('success');
-          }
+        if (imgbb.success) {
+          //   console.log(imgbb);
+          createUser(data.email, data.password)
+            .then((result) => {
+              const user = result.user;
+              //   console.log(user);
+              const userInfo = {
+                displayName: data.name,
+                photoURL: imgbb.data.url,
+              };
+              updateUser(userInfo)
+                .then((result) => {
+                  //   console.log(userInfo);
+                  verifyUser();
+                    toast.success("Account Created Successfully");
+                    reset();
+                })
+                .catch((err) => console.error(err));
+            })
+            .catch((err) => console.error(err));
+        }
       });
   };
+
+  const googleHandler = () => {
+    googleUser(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">
         <h1 className="text-3xl font-bold text-center">Register</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          novalidate=""
-          action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
@@ -120,7 +154,7 @@ const Register = ({ setIsModal, isModal }) => {
             )}
           </div>
 
-          <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400">
+          <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400 modal-action">
             Sign Up
           </button>
         </form>
@@ -136,6 +170,7 @@ const Register = ({ setIsModal, isModal }) => {
             aria-label="Login with Google"
             type="button"
             className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md hover:bg-gray-800 transition-colors duration-700 hover:text-gray-200 border-gray-800"
+            onClick={googleHandler}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
