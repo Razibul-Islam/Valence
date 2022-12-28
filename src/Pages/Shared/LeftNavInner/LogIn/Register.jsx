@@ -8,8 +8,8 @@ const Register = ({ setIsModal, isModal }) => {
   const {
     register,
     handleSubmit,
-      formState: { errors },
-    reset
+    formState: { errors },
+    reset,
   } = useForm();
 
   const imgbb = process.env.REACT_APP_imagebbAPI;
@@ -46,8 +46,8 @@ const Register = ({ setIsModal, isModal }) => {
                 .then((result) => {
                   //   console.log(userInfo);
                   verifyUser();
-                    toast.success("Account Created Successfully");
-                    reset();
+                  toast.success("Account Created Successfully");
+                  reset();
                 })
                 .catch((err) => console.error(err));
             })
@@ -60,7 +60,7 @@ const Register = ({ setIsModal, isModal }) => {
     googleUser(googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
       })
       .catch((err) => console.error(err));
   };

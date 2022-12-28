@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import LeftNav from "../Pages/Shared/LeftNav/LeftNav";
 import logo from "../assets/logo.png";
@@ -9,10 +9,13 @@ import { BiMessageRounded } from "react-icons/bi";
 import { IoIosNotifications } from "react-icons/io";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import Footer from "../Pages/Shared/Footer/Footer";
+import { AuthContext } from "../Pages/AuthProvider/AuthProvider";
 
 const Main = () => {
   const [drawer, setDrawer] = useState(false);
   const [bg, setBg] = useState(null);
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <div>
       <LeftNav setDrawer={setDrawer}></LeftNav>
@@ -124,11 +127,36 @@ const Main = () => {
             </div>
 
             <div>
-              <label htmlFor="login">
-                <li className="px-4 py-3 bg-blue-800 text-white font-semibold text-center rounded-lg cursor-pointer">
-                  Sign In
-                </li>
-              </label>
+              {user?.uid ? (
+                <>
+                  <div className="dropdown dropdown-top">
+                    <label tabIndex={0} className="m-1">
+                      <div className="avatar online">
+                        <div className="w-14 rounded-full">
+                          <img src={user?.photoURL} alt="" />
+                        </div>
+                      </div>
+                    </label>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li>
+                        <span>Log Out</span>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <label htmlFor="login">
+                    <li className="px-4 py-3 bg-blue-800 text-white font-semibold text-center rounded-lg cursor-pointer">
+                      Sign In
+                    </li>
+                  </label>
+                </>
+              )}
             </div>
           </ul>
         </div>
