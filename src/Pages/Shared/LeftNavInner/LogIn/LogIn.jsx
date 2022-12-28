@@ -4,7 +4,6 @@ import Register from "./Register";
 
 const LogIn = () => {
   const [isModal, setIsModal] = useState(true);
-  const [modalData, setModalData] = useState(null);
   return (
     <>
       <div>

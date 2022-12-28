@@ -46,7 +46,7 @@ const Main = () => {
               >
                 ✕
               </p>
-              <li className="mb-10 flex justify-center items-center cursor-pointer">
+              <li className="mb-10 flex justify-start items-center cursor-pointer">
                 <img src={logo} alt="" className="w-14" />{" "}
                 <span className="font-semibold mr-2 text-xl">Valence</span>
               </li>
@@ -146,7 +146,9 @@ const Main = () => {
                           </div>
                           <div className="ml-3">
                             <p className="font-semibold text-xl">
-                              {user?.displayName}
+                              {user?.displayName.length >= 15
+                                ? `${user?.displayName.slice(0, 15)}...`
+                                : user?.displayName}
                             </p>
                           </div>
                         </div>

@@ -47,6 +47,7 @@ const Register = ({ setIsModal, isModal }) => {
                   //   console.log(userInfo);
                   toast.success("Account Created Successfully");
                   verifyUser().then(() => {
+                    saveUser(data.name, data.email, userInfo.photoURL);
                     toast.success("Verify Email sent, Check your spam folder");
                   });
                   reset();
@@ -65,6 +66,37 @@ const Register = ({ setIsModal, isModal }) => {
         // console.log(user);
       })
       .catch((err) => console.error(err));
+  };
+
+  const saveUser = (
+    userName,
+    userEmail,
+    userPhoto,
+    university = "",
+    address = "",
+    Phone = "",
+    Birthday = ""
+  ) => {
+    const user = {
+      userName,
+      userEmail,
+      userPhoto,
+      university,
+      address,
+      Phone,
+      Birthday,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (

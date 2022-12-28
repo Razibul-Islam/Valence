@@ -10,7 +10,7 @@ const TopNav = () => {
     <div>
       <div className="lg:w-10/12 w-11/12 mx-auto mt-4">
         <div className="flex flex-col items-center justify-center">
-          <ul className="w-8/12 flex justify-around fixed lg:top-4 top-24 space-x-2">
+          <ul className="w-8/12 flex justify-around fixed lg:top-4 top-24 space-x-2 z-50">
             <li className="w-full text-center shadow-md">
               <Link
                 to="/"
@@ -45,7 +45,7 @@ const TopNav = () => {
               </Link>
             </li>
           </ul>
-          <div className="p-3 mt-[75px]">
+          <div className="p-3 w-full mt-[75px]">
             <div className={openTab === "feed" ? "block" : "hidden"}>
               <Feed />
             </div>
