@@ -40,7 +40,7 @@ const Logine = ({ setIsModal, isModal }) => {
             </div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400">
-            Sign in
+            Sign In
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">
@@ -73,7 +73,7 @@ const Logine = ({ setIsModal, isModal }) => {
             className="underline text-gray-800 cursor-pointer"
             onClick={() => setIsModal(!isModal)}
           >
-            Sign up
+            Sign Up
           </span>
         </p>
       </div>

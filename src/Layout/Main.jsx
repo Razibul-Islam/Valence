@@ -8,6 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { BiMessageRounded } from "react-icons/bi";
 import { IoIosNotifications } from "react-icons/io";
 import { BsFillBookmarkFill } from "react-icons/bs";
+import Footer from "../Pages/Shared/Footer/Footer";
 
 const Main = () => {
   const [drawer, setDrawer] = useState(false);
@@ -132,6 +133,7 @@ const Main = () => {
           </ul>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
