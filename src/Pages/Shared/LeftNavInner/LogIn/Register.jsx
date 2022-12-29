@@ -15,7 +15,7 @@ const Register = ({ setIsModal, isModal }) => {
   const imgbb = process.env.REACT_APP_imagebbAPI;
   const googleProvider = new GoogleAuthProvider();
 
-  const { createUser, updateUser, googleUser, verifyUser } =
+  const { createUser, updateUser, googleUser, verifyUser, loading } =
     useContext(AuthContext);
 
   const onSubmit = (data) => {
@@ -140,6 +140,9 @@ const Register = ({ setIsModal, isModal }) => {
       });
   };
 
+//   if (loading) {
+//   return <div>auth register loading...</div>
+// }
   return (
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">

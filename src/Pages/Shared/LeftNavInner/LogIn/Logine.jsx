@@ -16,7 +16,8 @@ const Logine = ({ setIsModal, isModal }) => {
   const [loginError, setLoginError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
-  const { googleUser, loginUser, passwordEmail } = useContext(AuthContext);
+  const { googleUser, loginUser, passwordEmail, loading } =
+    useContext(AuthContext);
 
   const onSubmit = (data) => {
     // console.log(data);
@@ -63,6 +64,9 @@ const Logine = ({ setIsModal, isModal }) => {
     setUserEmail(e.target.value);
   };
 
+  // if (loading) {
+  //   return <div>Auth Login Loading...</div>;
+  // }
   return (
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">
