@@ -13,6 +13,7 @@ const PostModal = () => {
   const imgbb = process.env.REACT_APP_imagebbAPI;
 
   const submit = (data) => {
+    const date = Date.now();
     if (data.image.length > 0) {
       const image = data.image[0];
       const formData = new FormData();
@@ -29,6 +30,8 @@ const PostModal = () => {
             const details = {
               message: data.message,
               image: imgbb.data.url,
+              user,
+              date,
             };
             fetch("http://localhost:5000/posts", {
               method: "POST",
@@ -48,6 +51,8 @@ const PostModal = () => {
     } else {
       const details = {
         message: data.message,
+        user,
+        date,
       };
       fetch("http://localhost:5000/posts", {
         method: "POST",
