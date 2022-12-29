@@ -1,7 +1,36 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 
 const AllPost = ({ posts }) => {
-  const { message, image, user, date } = posts;
+  const { message, image, user, date, _id } = posts;
+
+  const getComment = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const field = form.comment.value;
+    // console.log(field, _id);
+    const data = {
+      comment: field,
+      postId: _id,
+    };
+    // console.log(data);
+    fetch("http://localhost:5000/comments", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Comment Done!");
+          form.reset();
+        }
+      })
+      .catch((err) => console.error(err));
+  };
   return (
     <div className="flex flex-col mt-10 p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-white text-gray-800">
       <div className="flex items-center justify-between p-3">
@@ -137,11 +166,17 @@ const AllPost = ({ posts }) => {
               <span className="text-base font-semibold">leroy_jenkins72</span>
               Nemo ea quasi debitis impedit!
             </p>
-            <input
-              type="text"
-              placeholder="Add a comment..."
-              className="w-full py-0.5 dark:bg-transparent focus:outline-none border-none rounded text-sm pl-0 text-gray-800"
-            />
+            <form onSubmit={getComment} className="flex gap-3">
+              <input
+                type="text"
+                placeholder="Add a comment..."
+                name="comment"
+                className="w-full py-0.5 dark:bg-transparent focus:outline-none border-none rounded text-sm pl-0 text-gray-800"
+              />
+              <button className="bg-blue-800 py-3 px-4 rounded-lg text-white font-semibold text-lg">
+                Comment
+              </button>
+            </form>
           </div>
         </div>
       </div>

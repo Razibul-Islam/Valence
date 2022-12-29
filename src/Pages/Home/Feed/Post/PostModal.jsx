@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { BsFillImageFill } from "react-icons/bs";

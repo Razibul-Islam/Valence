@@ -63,7 +63,8 @@ const Register = ({ setIsModal, isModal }) => {
     googleUser(googleProvider)
       .then((result) => {
         const user = result.user;
-        // console.log(user);
+        saveGoogleUser(user.displayName, user.emaigil, user.photoURL);
+        console.log(user);
       })
       .catch((err) => console.error(err));
   };
@@ -75,7 +76,8 @@ const Register = ({ setIsModal, isModal }) => {
     university = "",
     address = "",
     Phone = "",
-    Birthday = ""
+    Birthday = "",
+    Gender = ""
   ) => {
     const user = {
       userName,
@@ -85,6 +87,7 @@ const Register = ({ setIsModal, isModal }) => {
       address,
       Phone,
       Birthday,
+      Gender,
     };
     fetch("http://localhost:5000/users", {
       method: "POST",
@@ -99,6 +102,44 @@ const Register = ({ setIsModal, isModal }) => {
       });
   };
 
+  const saveGoogleUser = (
+    userName,
+    userEmail,
+    userPhoto,
+    university = "",
+    address = "",
+    Phone = "",
+    Birthday = "",
+    Gender = ""
+  ) => {
+    const user = {
+      userName,
+      userEmail,
+      userPhoto,
+      university,
+      address,
+      Phone,
+      Birthday,
+      Gender,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log("save-user = google", data);
+        if (data.acknowledged) {
+          toast.success(`Google Login Successful, 'Email' = ${user.email}`);
+
+          // navigate(from, { replace: true });
+        }
+      });
+  };
+
   return (
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">
@@ -108,7 +149,7 @@ const Register = ({ setIsModal, isModal }) => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label for="Name" className="block text-lg text-gray-400">
+            <label htmlFor="Name" className="block text-lg text-gray-400">
               Name
             </label>
             <input
@@ -128,7 +169,7 @@ const Register = ({ setIsModal, isModal }) => {
             )}
           </div>
           <div className="space-y-1 text-sm">
-            <label for="email" className="block text-lg text-gray-400">
+            <label htmlFor="email" className="block text-lg text-gray-400">
               Email
             </label>
             <input
@@ -149,7 +190,7 @@ const Register = ({ setIsModal, isModal }) => {
           </div>
 
           <div className="space-y-1 text-sm">
-            <label for="photo" className="block text-lg text-gray-400">
+            <label htmlFor="photo" className="block text-lg text-gray-400">
               Photo
             </label>
             <input
@@ -168,7 +209,7 @@ const Register = ({ setIsModal, isModal }) => {
             )}
           </div>
           <div className="space-y-1 text-sm">
-            <label for="password" className="block text-lg text-gray-400">
+            <label htmlFor="password" className="block text-lg text-gray-400">
               Password
             </label>
             <input
