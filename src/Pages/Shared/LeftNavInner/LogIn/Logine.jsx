@@ -73,13 +73,13 @@ const Logine = ({ setIsModal, isModal }) => {
         <h1 className="text-3xl font-bold text-center">Login</h1>
         <p className="text-center text-lg text-red-800">{loginError}</p>
         <form
-          novalidate=""
+          noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="space-y-1 text-sm">
-            <label for="email" className="block text-lg text-gray-400">
+            <label htmlFor="email" className="block text-lg text-gray-400">
               Email
             </label>
             <input
@@ -102,7 +102,7 @@ const Logine = ({ setIsModal, isModal }) => {
             )}
           </div>
           <div className="space-y-1 text-sm">
-            <label for="password" className="block text-lg text-gray-400">
+            <label htmlFor="password" className="block text-lg text-gray-400">
               Password
             </label>
             <input

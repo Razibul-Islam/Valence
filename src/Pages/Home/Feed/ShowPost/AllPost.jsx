@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AllPost = ({ posts }) => {
   const { message, image, user, date, _id } = posts;
@@ -167,7 +168,7 @@ const AllPost = ({ posts }) => {
               Nemo ea quasi debitis impedit!
             </p>
             <form onSubmit={getComment} className="flex gap-3">
-              <input
+              {/* <input
                 type="text"
                 placeholder="Add a comment..."
                 name="comment"
@@ -175,7 +176,12 @@ const AllPost = ({ posts }) => {
               />
               <button className="bg-blue-800 py-3 px-4 rounded-lg text-white font-semibold text-lg">
                 Comment
-              </button>
+              </button> */}
+              <Link to={`/singlePost/${_id}`}>
+                <p className="font-bold text-lg text-gray-600/100 cursor-pointer select-none">
+                  View all Comments...
+                </p>
+              </Link>
             </form>
           </div>
         </div>

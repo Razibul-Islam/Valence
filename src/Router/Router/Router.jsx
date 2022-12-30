@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import Feed from "../../Pages/Home/Feed/Feed";
+import SinglePost from "../../Pages/Home/Feed/Post/SinglePost";
 import Home from "../../Pages/Home/Home/Home";
 import Error from "../../Pages/Shared/Error/Error";
 import BookMarks from "../../Pages/Shared/LeftNavInner/BookMarks/BookMarks";
@@ -45,10 +46,17 @@ export const router = createBrowserRouter([
         element: <BookMarks />,
       },
       {
-        path: "/user/:id",
+        path: "user/:id",
         element: <EditProfile />,
         loader: ({ params }) => {
           return fetch(`http://localhost:5000/user/${params.id}`);
+        },
+      },
+      {
+        path: "singlePost/:id",
+        element: <SinglePost />,
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/post/${params.id}`);
         },
       },
     ],

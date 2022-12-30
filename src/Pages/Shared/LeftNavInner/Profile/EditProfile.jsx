@@ -34,7 +34,7 @@ const EditProfile = () => {
         // console.log(data);
         toast.success("Your profile has been updated!");
         reset();
-        navigate('/profile')
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
@@ -135,7 +135,7 @@ const EditProfile = () => {
 
           <div class="flex items-center justify-center">
             <div class="datepicker relative form-floating mb-3 xl:w-96">
-              <label for="floatingInput" class="text-gray-700">
+              <label htmlFor="floatingInput" class="text-gray-700">
                 Date of Birth
               </label>
               <input

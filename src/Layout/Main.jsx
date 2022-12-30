@@ -15,7 +15,7 @@ const Main = () => {
   const [drawer, setDrawer] = useState(false);
   const [bg, setBg] = useState(null);
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
   const signOut = () => {
     logOut().then().catch();
