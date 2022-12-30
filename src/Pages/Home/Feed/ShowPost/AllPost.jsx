@@ -73,7 +73,7 @@ const AllPost = ({ posts }) => {
             className="object-cover w-full mb-4 h-60 sm:h-96 bg-gray-500"
           />
         )}
-        <p className="text-sm text-gray-600">
+        <p className="text-md text-gray-600">
           {message.length >= 200 ? message.slice(0, 200) + "..." : message}
         </p>
       </div>

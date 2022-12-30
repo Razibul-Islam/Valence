@@ -131,11 +131,15 @@ const Logine = ({ setIsModal, isModal }) => {
               </span>
             </div>
           </div>
-          <input
-            value="Log In"
-            type="submit"
-            className="block w-full p-3 cursor-pointer text-center rounded-sm text-lg text-gray-900 bg-violet-400"
-          />
+          {!loading ? (
+            <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400 modal-action">
+              Log In
+            </button>
+          ) : (
+            <div className="w-full p-3 rounded-sm bg-violet-400">
+              <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-white mx-auto"></div>
+            </div>
+          )}
         </form>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

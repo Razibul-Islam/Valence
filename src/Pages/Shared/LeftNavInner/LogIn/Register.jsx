@@ -140,9 +140,9 @@ const Register = ({ setIsModal, isModal }) => {
       });
   };
 
-//   if (loading) {
-//   return <div>auth register loading...</div>
-// }
+  //   if (loading) {
+  //   return <div>auth register loading...</div>
+  // }
   return (
     <>
       <div className="w-full p-8 space-y-3 rounded-xl  text-gray-800">
@@ -232,9 +232,15 @@ const Register = ({ setIsModal, isModal }) => {
             )}
           </div>
 
-          <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400 modal-action">
-            Sign Up
-          </button>
+          {!loading ? (
+            <button className="block w-full p-3 text-center rounded-sm text-lg text-gray-900 bg-violet-400 modal-action">
+              Sign Up
+            </button>
+          ) : (
+            <div className="w-full p-3 rounded-sm bg-violet-400">
+              <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-white mx-auto"></div>
+            </div>
+          )}
         </form>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

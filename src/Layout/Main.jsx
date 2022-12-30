@@ -15,7 +15,7 @@ const Main = () => {
   const [drawer, setDrawer] = useState(false);
   const [bg, setBg] = useState(null);
   const { user, logOut } = useContext(AuthContext);
-  // console.log(user);
+  console.log(user);
 
   const signOut = () => {
     logOut().then().catch();
@@ -146,9 +146,7 @@ const Main = () => {
                           </div>
                           <div className="ml-3">
                             <p className="font-semibold text-xl">
-                              {user?.displayName.length >= 15
-                                ? `${user?.displayName.slice(0, 15)}...`
-                                : user?.displayName}
+                              {user?.displayName}
                             </p>
                           </div>
                         </div>

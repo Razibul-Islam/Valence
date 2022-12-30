@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { BsFillImageFill } from "react-icons/bs";
 import { BiSend } from "react-icons/bi";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+// import { data } from "autoprefixer";
 
 const PostModal = () => {
   const { user } = useContext(AuthContext);
+  const [readValue, setReadValue] = useState("");
 
   const { register, handleSubmit, reset } = useForm();
   const imgbb = process.env.REACT_APP_imagebbAPI;
@@ -43,8 +45,8 @@ const PostModal = () => {
               .then((res) => res.json())
               .then((data) => {
                 // console.log(data);
-                reset();
                 toast.success("Your post has been posted");
+                reset();
               });
           }
         });
@@ -64,7 +66,7 @@ const PostModal = () => {
         .then((res) => res.json())
         .then((data) => {
           //   console.log(data);
-          reset();
+          setReadValue("");
           toast.success("Your post has been posted");
         });
     }
@@ -98,6 +100,8 @@ const PostModal = () => {
                 placeholder="Bio"
                 rows="5"
                 {...register("message")}
+                onChange={(e) => setReadValue(e.target.value)}
+                value={readValue}
               ></textarea>
               <div className="flex justify-between items-center px-4 mt-2">
                 <div>
@@ -112,7 +116,10 @@ const PostModal = () => {
                     {...register("image")}
                   />
                 </div>
-                <button className="bg-blue-700 text-xl px-4 py-2 rounded-lg text-white font-semibold flex justify-center gap-2 items-center">
+                <button
+                  disabled={readValue === ""}
+                  className="bg-blue-700 text-xl px-4 py-2 rounded-lg text-white font-semibold flex justify-center gap-2 items-center"
+                >
                   Post <BiSend />
                 </button>
               </div>

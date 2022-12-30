@@ -7,6 +7,7 @@ import BookMarks from "../../Pages/Shared/LeftNavInner/BookMarks/BookMarks";
 import Explore from "../../Pages/Shared/LeftNavInner/Explore/Explore";
 import Message from "../../Pages/Shared/LeftNavInner/Message/Message";
 import Notification from "../../Pages/Shared/LeftNavInner/Notification/Notification";
+import EditProfile from "../../Pages/Shared/LeftNavInner/Profile/EditProfile";
 import Profile from "../../Pages/Shared/LeftNavInner/Profile/Profile";
 
 export const router = createBrowserRouter([
@@ -42,6 +43,13 @@ export const router = createBrowserRouter([
       {
         path: "bookmarks",
         element: <BookMarks />,
+      },
+      {
+        path: "/user/:id",
+        element: <EditProfile />,
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/user/${params.id}`);
+        },
       },
     ],
   },

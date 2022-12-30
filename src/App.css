@@ -1,0 +1,22 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+}
+
+body ::-webkit-scrollbar-thumb {
+    background-color: hsla(305, 91%, 57%, 0.16);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(204, 27, 248, 0.616);
+}
+
+::-webkit-scrollbar-track {
+    background: hsla(0, 0%, 100%, 0.1);
+}
