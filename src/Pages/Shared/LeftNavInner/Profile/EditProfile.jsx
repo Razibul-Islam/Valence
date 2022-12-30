@@ -133,15 +133,15 @@ const EditProfile = () => {
             </div>
           </div>
 
-          <div class="flex items-center justify-center">
-            <div class="datepicker relative form-floating mb-3 xl:w-96">
-              <label htmlFor="floatingInput" class="text-gray-700">
+          <div className="flex items-center justify-center">
+            <div className="datepicker relative form-floating mb-3 xl:w-96">
+              <label htmlFor="floatingInput" className="text-gray-700">
                 Date of Birth
               </label>
               <input
                 type="date"
                 defaultValue={update.Birthday}
-                class="mt-2 w-full text-xl input"
+                className="mt-2 w-full text-xl input"
                 placeholder="Select a date"
                 {...register("birthday")}
               />

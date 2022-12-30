@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Post from "./Post/Post";
 import ShowPost from "./ShowPost/ShowPost";
+import Staticfeed from "./Staticfeed";
 
 const Feed = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div>
       <Post />
-      <ShowPost />
+      {user?.uid ? <ShowPost /> : <Staticfeed />}
     </div>
   );
 };
