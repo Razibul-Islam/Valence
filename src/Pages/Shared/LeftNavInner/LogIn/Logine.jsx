@@ -38,7 +38,8 @@ const Logine = ({ setIsModal, isModal }) => {
     googleUser(googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
+        saveGoogleUser(user.displayName, user.email, user.photoURL);
       })
       .catch((err) => {
         // console.error(err)
@@ -62,6 +63,44 @@ const Logine = ({ setIsModal, isModal }) => {
   const handleEmail = (e) => {
     // console.log(e.target.value);
     setUserEmail(e.target.value);
+  };
+
+  const saveGoogleUser = (
+    userName,
+    userEmail,
+    userPhoto,
+    university = "",
+    address = "",
+    Phone = "",
+    Birthday = "",
+    Gender = ""
+  ) => {
+    const user = {
+      userName,
+      userEmail,
+      userPhoto,
+      university,
+      address,
+      Phone,
+      Birthday,
+      Gender,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log("save-user = google", data);
+        if (data.acknowledged) {
+          toast.success(`Google Login Successful, 'Email' = ${user.email}`);
+
+          // navigate(from, { replace: true });
+        }
+      });
   };
 
   // if (loading) {

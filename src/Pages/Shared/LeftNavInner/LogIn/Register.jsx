@@ -63,7 +63,7 @@ const Register = ({ setIsModal, isModal }) => {
     googleUser(googleProvider)
       .then((result) => {
         const user = result.user;
-        saveGoogleUser(user.displayName, user.emaigil, user.photoURL);
+        saveGoogleUser(user.displayName, user.email, user.photoURL);
         console.log(user);
       })
       .catch((err) => console.error(err));

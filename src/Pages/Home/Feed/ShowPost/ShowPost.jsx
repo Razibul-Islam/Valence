@@ -3,16 +3,17 @@ import React from "react";
 import AllPost from "./AllPost";
 
 const ShowPost = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["posts"],
     queryFn: async () => {
       const res = await fetch("http://localhost:5000/posts");
       const data = await res.json();
+      refetch();
       return data;
     },
   });
 
-    // console.log(data);
+  // console.log(data);
 
   if (isLoading) {
     return <div>loading</div>;
@@ -20,10 +21,7 @@ const ShowPost = () => {
   return (
     <div>
       {data.map((posts) => (
-        <AllPost
-          key={posts._id}
-          posts={posts}
-        ></AllPost>
+        <AllPost key={posts._id} posts={posts}></AllPost>
 
         // <div className="flex flex-col mt-10 p-6 space-y-6 overflow-hidden rounded-lg shadow-md bg-white text-gray-800">
         //   <div className="flex items-center justify-between p-3">

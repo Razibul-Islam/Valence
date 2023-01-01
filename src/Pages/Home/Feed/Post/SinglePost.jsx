@@ -116,18 +116,18 @@ const SinglePost = () => {
   //       });
   //   };
 
-//   const manageLike = () => {
-//     // setLikeOne(!likeOne);
-//     if (!manageLikes) {
-//       setManageLikes(true);
-//       setLike(like - 1);
-//     //   console.log(state.this.like);
-//     } else {
-//       setManageLikes(false);
-//       setLike(like + 1);
-//       console.log(like);
-//     }
-//   };
+  //   const manageLike = () => {
+  //     // setLikeOne(!likeOne);
+  //     if (!manageLikes) {
+  //       setManageLikes(true);
+  //       setLike(like - 1);
+  //     //   console.log(state.this.like);
+  //     } else {
+  //       setManageLikes(false);
+  //       setLike(like + 1);
+  //       console.log(like);
+  //     }
+  //   };
 
   if (isLoading) {
     return <div>ddd</div>;
