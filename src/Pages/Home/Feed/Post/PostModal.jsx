@@ -1,15 +1,18 @@
 import React, { useContext, useState } from "react";
-import { AiOutlineLeft } from "react-icons/ai";
-import { AuthContext } from "../../../AuthProvider/AuthProvider";
-import { BsFillImageFill } from "react-icons/bs";
-import { BiSend } from "react-icons/bi";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { AiOutlineLeft } from "react-icons/ai";
+import { BiSend } from "react-icons/bi";
+import { BsFillImageFill } from "react-icons/bs";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 // import { data } from "autoprefixer";
 
 const PostModal = () => {
   const { user } = useContext(AuthContext);
   const [readValue, setReadValue] = useState("");
+  const [img, setImg] = useState(0);
+
+  // console.log(img);
 
   const { register, handleSubmit, reset } = useForm();
   const imgbb = process.env.REACT_APP_imagebbAPI;
@@ -27,8 +30,8 @@ const PostModal = () => {
       })
         .then((res) => res.json())
         .then(async (imgbb) => {
+          // console.log(imgbb);
           if (imgbb.success) {
-            //   setImgLink(imgbb)
             const details = {
               message: data.message,
               image: imgbb.data.url,
@@ -45,6 +48,7 @@ const PostModal = () => {
               .then((res) => res.json())
               .then((data) => {
                 // console.log(data);
+                setReadValue("");
                 toast.success("Your post has been posted");
                 reset();
               });
@@ -114,11 +118,12 @@ const PostModal = () => {
                     className="hidden"
                     accept="image/*"
                     {...register("image")}
+                    onChange={(e) => setImg(e.eventPhase)}
                   />
                 </div>
                 <button
-                  disabled={readValue === ""}
-                  className="bg-blue-700 text-xl px-4 py-2 rounded-lg text-white font-semibold flex justify-center gap-2 items-center"
+                  disabled={readValue === "" && img === 0}
+                  className="bg-blue-700 text-xl px-4 py-2 rounded-lg text-white font-semibold flex justify-center gap-2 items-center disabled:bg-gray-500/50"
                 >
                   Post <BiSend />
                 </button>

@@ -1,36 +1,22 @@
-import { async } from "@firebase/util";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
-import { AiOutlineLeft, AiOutlineLike } from "react-icons/ai";
-import { GoComment } from "react-icons/go";
-import { FiShare2 } from "react-icons/fi";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import { AiOutlineLeft } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
-import { LikeButton, Provider } from "@lyket/react";
+import { FiShare2 } from "react-icons/fi";
+import { GoComment } from "react-icons/go";
+import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const SinglePost = () => {
+  const { user } = useContext(AuthContext);
   const post = useLoaderData();
-  //   console.log(post);
 
   const postId = post._id;
 
-  //   const { data: singlePost = {}, refetch } = useQuery({
-  //     queryKey: ["post", postId],
-  //     queryFn: async () => {
-  //       const res = await fetch(`http://localhost:5000/post/${postId}`);
-  //       const data = await res.json();
-  //       return data;
-  //     },
-  //   });
-  //   console.log(singlePost);
-
-  const [like, setLike] = useState(0);
-  const [manageLikes, setManageLikes] = useState(true);
-
-  console.log(manageLikes);
-  // console.log(like);
+  const [postId2, setPostId2] = useState(post.likeCount);
+  const [liked, setLiked] = useState(false);
 
   const {
     data: comments = [],
@@ -45,19 +31,16 @@ const SinglePost = () => {
     },
   });
 
-  //   console.log(post.like);
-
   const getComment = (e) => {
     e.preventDefault();
     const form = e.target;
     const field = form.comment.value;
-    // console.log(field, _id);
     const data = {
       comment: field,
       postId: post._id,
-      postUser: post.user,
+      postUser: user,
     };
-    // console.log(data);
+
     fetch("http://localhost:5000/comments", {
       method: "POST",
       headers: {
@@ -67,7 +50,7 @@ const SinglePost = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.acknowledged) {
           toast.success("Comment Done!");
           form.reset();
@@ -77,57 +60,31 @@ const SinglePost = () => {
       .catch((err) => console.error(err));
   };
 
-  //   const manageLike = () => {
-  //     setLike(like - 1);
-  //     setLikeOne(!likeOne);
-  //     fetch(`http://localhost:5000/like/${postId}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify({ like }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data.acknowledged) {
-  //           refetch();
-  //         }
-  //         console.log(data);
-  //       });
-  //   };
+  const handleLikeClick = async () => {
+    if (!liked) {
+      const response = await fetch(`http://localhost:5000/like/${postId}`, {
+        method: "POST",
+      });
+      // console.log(response);
 
-  //   const handleLike = () => {
-  //     setLike(like + 1);
-  //     setLikeOne(!likeOne);
+      if (response.ok) {
+        setPostId2(post.likeCount + 1);
+        refetch();
+        setLiked(!liked);
+      }
+    } else {
+      const response = await fetch(`http://localhost:5000/dislike/${postId}`, {
+        method: "POST",
+      });
+      // console.log(response);
 
-  //     fetch(`http://localhost:5000/like/${postId}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify({ like }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data.acknowledged) {
-  //           refetch();
-  //         }
-  //         console.log(data);
-  //       });
-  //   };
-
-  //   const manageLike = () => {
-  //     // setLikeOne(!likeOne);
-  //     if (!manageLikes) {
-  //       setManageLikes(true);
-  //       setLike(like - 1);
-  //     //   console.log(state.this.like);
-  //     } else {
-  //       setManageLikes(false);
-  //       setLike(like + 1);
-  //       console.log(like);
-  //     }
-  //   };
+      if (response.ok) {
+        setPostId2(post.likeCount - 1);
+        refetch();
+        setLiked(!liked);
+      }
+    }
+  };
 
   if (isLoading) {
     return <div>ddd</div>;
@@ -181,60 +138,12 @@ const SinglePost = () => {
                 <p className="text-lg my-4 border-b border-b-gray-400/30 max-h-80 overflow-y-auto text-justify font-semibold">
                   {post.message}
                 </p>
-                {/*  */}
+
                 <div className="grid grid-cols-3 w-full px-5 my-3">
-                  {/* {manageLikes === false ? (
-                    <>
-                      <button
-                        onClick={() => manageLike(setManageLikes(manageLikes===false))}
-                        className="flex flex-row justify-center items-center w-full space-x-3"
-                      >
-                        {post.like}
-                        <AiOutlineLike className="text-3xl" />
-                        <span className="font-semibold text-lg text-gray-600">
-                          Like
-                        </span>
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={() => manageLike(setManageLikes(manageLikes === true))}
-                        className="flex flex-row justify-center items-center w-full space-x-3"
-                      >
-                        {like}
-                        <AiOutlineLike className="text-3xl" />
-                        <span className="font-semibold text-lg text-gray-600">
-                          Like
-                        </span>
-                      </button>
-                    </>
-                  )} */}
-                  {/* <button
-                    onClick={manageLike}
-                    className="flex flex-row justify-center items-center w-full space-x-3"
-                  >
-                    {like}
-                    <AiOutlineLike className="text-3xl" />
-                    <span className="font-semibold text-lg text-gray-600">
-                      Like
-                    </span>
-                  </button> */}
-                  <Provider
-                    apiKey="acc0dbccce8e557db5ebbe6d605aaa"
-                    theme={{
-                      colors: {
-                        background: "#b8fff3",
-                        text: "violet",
-                        primary: "rgba(255, 224, 138, 0.4)",
-                      },
-                    }}
-                  >
-                    <LikeButton
-                      namespace="my-blog-post"
-                      id="how-to-beat-me-at-chess"
-                    />
-                  </Provider>
+                  <button onClick={handleLikeClick}>
+                    Likes {liked ? postId2 : postId2}
+                  </button>
+
                   <button className="flex flex-row justify-center items-center w-full space-x-3">
                     <GoComment className="text-3xl" />
                     <span className="font-semibold text-lg text-gray-600">
@@ -266,8 +175,6 @@ const SinglePost = () => {
                   </form>
                 </div>
 
-                {/*  */}
-                {/*  */}
                 <div className="mt-3">
                   <h3 className="font-bold text-xl cursor-pointer underline">
                     All Comments...
@@ -279,9 +186,9 @@ const SinglePost = () => {
                         className="flex items-center space-x-2"
                       >
                         <div className="flex flex-shrink-0 self-start cursor-pointer">
-                          {comment?.postUser?.photoURL ? (
+                          {comment.postUser?.photoURL ? (
                             <img
-                              src={comment?.postUser?.photoURL}
+                              src={comment.postUser?.photoURL}
                               alt=""
                               className="h-16 w-16 object-cover rounded-full"
                             />

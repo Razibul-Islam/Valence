@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
@@ -66,7 +66,8 @@ const Profile = () => {
                   <span className="font-semibold">Name:</span> {data?.userName}
                 </p>
                 <p className="input text-lg">
-                  <span className="font-semibold">Email:</span> {data?.userEmail}
+                  <span className="font-semibold">Email:</span>{" "}
+                  {data?.userEmail}
                 </p>
                 <p className="input text-lg">
                   <span className="font-semibold">Address:</span>{" "}

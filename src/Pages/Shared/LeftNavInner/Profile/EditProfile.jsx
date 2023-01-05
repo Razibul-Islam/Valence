@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   const update = useLoaderData();
@@ -112,7 +112,6 @@ const EditProfile = () => {
                     type="radio"
                     {...register("gender")}
                     value="Male"
-                    // checked={update.Gender === "Male"}
                     className="radio radio-warning"
                     defaultChecked={update.Gender === "Male"}
                   />{" "}
@@ -123,7 +122,6 @@ const EditProfile = () => {
                     type="radio"
                     {...register("gender")}
                     value="Female"
-                    // checked={update.Gender === "Female"}
                     className="radio radio-warning"
                     defaultChecked={update.Gender === "Female"}
                   />{" "}
@@ -149,9 +147,12 @@ const EditProfile = () => {
           </div>
 
           <div className="flex justify-center gap-2 mt-8">
-            <button className="bg-[#c4c4c4] px-4 py-3 text-2xl text-white rounded-md">
+            <Link
+              to="/profile"
+              className="bg-[#c4c4c4] px-4 py-3 text-2xl text-white rounded-md"
+            >
               Cancel
-            </button>
+            </Link>
             <button className="bg-blue-800 px-4 py-3 text-2xl text-white rounded-md">
               Save
             </button>
